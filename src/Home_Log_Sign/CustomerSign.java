@@ -31,7 +31,7 @@ public class CustomerSign extends javax.swing.JFrame {
         no.setVisible(false);
     }
 
-//    //for signup function   
+   //for signup function   
 //    public void SignUp(Customer c) {
 //        app.customerList.add(c);
 //        int i = app.customerList.indexOf(c);
