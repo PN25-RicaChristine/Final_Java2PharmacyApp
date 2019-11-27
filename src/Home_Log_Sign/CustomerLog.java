@@ -37,7 +37,7 @@ public class CustomerLog extends javax.swing.JFrame {
         //saving loaded customer to db
         for (int i = 0; i < customerList.size(); ++i) {
             try {
-                // create a mysql database connection
+                
 
                 //com.mysql.cj.jdbc.Driver
                 String myDriver = "com.mysql.jdbc.Driver";
