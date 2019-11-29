@@ -5,13 +5,13 @@
  */
 package Home_Log_Sign;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author debuayanri_sd2022
  */
 public class Sign extends javax.swing.JFrame {
-
-    
 
     /**
      * Creates new form Home
@@ -143,24 +143,39 @@ public class Sign extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Home().setVisible(true);
             }
         });
-        this.setVisible(false);
+        this.dispose();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        PharmaSign pharm = new PharmaSign();
-        pharm.setVisible(true);
-        this.setVisible(false);
+        // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new PharmaLog().setVisible(true);
+            }
+        });
+        this.dispose();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        CustomerSign cust = new CustomerSign();
-        cust.setVisible(true);
-        this.setVisible(false);
+        // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new CustomerLog().setVisible(true);
+            }
+        });
+        this.dispose();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

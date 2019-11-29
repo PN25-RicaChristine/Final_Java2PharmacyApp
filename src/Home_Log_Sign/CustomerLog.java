@@ -10,10 +10,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import pharmacysystem.Customer;
 
@@ -29,49 +29,6 @@ public class CustomerLog extends javax.swing.JFrame {
      * Creates new form Home
      */
     public CustomerLog() {
-        ArrayList<Customer> customerList = new ArrayList<>();
-        customerList.add(new Customer("Mike Debrie Debuayan", "Cebu City, Cebu", "mdebrie", "mddd", 19));
-        customerList.add(new Customer("Erlinda Wenceslao", "Isabel, Leyte", "nene", "lola", 70));
-        customerList.add(new Customer("Khen Arjie Debuayan", "Dalaguete, Cebu", "khena", "kadd", 18));
-
-        //saving loaded customer to db
-        for (int i = 0; i < customerList.size(); ++i) {
-            try {
-                
-
-                //com.mysql.cj.jdbc.Driver
-                String myDriver = "com.mysql.jdbc.Driver";
-
-                String myUrl = "jdbc:mysql://localhost/rica_java";
-                Class.forName(myDriver);
-                Connection conn = DriverManager.getConnection(myUrl, "root", "");
-
-                // create a sql date object so we can use it in our INSERT statement
-                Calendar calendar = Calendar.getInstance();
-                java.sql.Date startDate = new java.sql.Date(calendar.getTime().getTime());
-
-                // the mysql insert statement
-                String query = " insert into customer(customer_id,name,address,username,password,age)"
-                        + " values (?,?,?,?,?,?)";
-
-                // create the mysql insert preparedstatement
-                PreparedStatement preparedStmt = conn.prepareStatement(query);
-                preparedStmt.setString(1, customerList.get(i).getId());
-                preparedStmt.setString(2, customerList.get(i).getName());
-                preparedStmt.setString(3, customerList.get(i).getAddress());
-                preparedStmt.setString(4, customerList.get(i).getUsername());
-                preparedStmt.setString(5, customerList.get(i).getPassword());
-                preparedStmt.setInt(6, customerList.get(i).getAge());
-
-                // execute the preparedstatement
-                preparedStmt.execute();
-
-                conn.close();
-            } catch (Exception e) {
-                System.err.println("Got an exception!");
-                System.err.println(e.getMessage());
-            }
-        }
         getAllCustomer();
         initComponents();
     }
@@ -283,18 +240,50 @@ public class CustomerLog extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Successfully Loggged In!");
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    CustomerMedicineOption cm = new CustomerMedicineOption();
-                    cm.customerName.setText(c.getName());
-                    cm.customerID.setText("ID: CSD2022-" + c.customerIDno);
-                    cm.setVisible(true);
+
+                    try {
+// create a mysql database connection
+
+                        //com.mysql.cj.jdbc.Driver
+                        String myDriver = "com.mysql.jdbc.Driver";
+
+                        String myUrl = "jdbc:mysql://localhost/rica_java";
+                        Class.forName(myDriver);
+                        Connection conn = DriverManager.getConnection(myUrl, "root", "");
+
+                        // create a sql date object so we can use it in our INSERT statement
+                        Calendar calendar = Calendar.getInstance();
+                        java.sql.Date startDate = new java.sql.Date(calendar.getTime().getTime());
+
+                        final String queryCheck = "SELECT customer_id,username from customer WHERE username = ?";
+                        final PreparedStatement ps = conn.prepareStatement(queryCheck);
+                        ps.setString(1, c.getUsername());
+                        final ResultSet resultSet = ps.executeQuery();
+
+                        if (resultSet.next()) {
+                            if (resultSet.getString("username").equals(c.getUsername())) {
+                                CustomerMedicineOption cm = new CustomerMedicineOption();
+                                cm.customerName.setText(c.getName());
+                                cm.customerID.setText("ID: " + resultSet.getString("customer_id"));
+                                cm.setVisible(true);
+
+                            }
+                        }
+
+                        conn.close();
+                    } catch (Exception e) {
+                        System.err.println("Got an exception!");
+                        System.err.println(e.getMessage());
+                    }
+
                 }
             });
             this.dispose();
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         } else {
             notify.setText("Username and Password Mismatch or Not Exist! Try Again.");
         }
-  
 
 
     }//GEN-LAST:event_loginActionPerformed
@@ -305,7 +294,8 @@ public class CustomerLog extends javax.swing.JFrame {
                 new Log().setVisible(true);
             }
         });
-        this.setVisible(false);
+        this.dispose();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }//GEN-LAST:event_jButton3ActionPerformed
 

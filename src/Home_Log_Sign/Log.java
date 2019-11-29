@@ -5,6 +5,8 @@
  */
 package Home_Log_Sign;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author debuayanri_sd2022
@@ -136,19 +138,32 @@ public class Log extends javax.swing.JFrame {
                 new Home().setVisible(true);
             }
         });
-        this.setVisible(false);
+        this.dispose();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        PharmaLog pharm = new PharmaLog();
-        pharm.setVisible(true);
-        this.setVisible(false);
+        // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new PharmaLog().setVisible(true);
+            }
+        });
+        this.dispose();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        CustomerLog cust = new CustomerLog();
-        cust.setVisible(true);
-        this.setVisible(false);
+        // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new CustomerLog().setVisible(true);
+            }
+        });
+        this.dispose();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

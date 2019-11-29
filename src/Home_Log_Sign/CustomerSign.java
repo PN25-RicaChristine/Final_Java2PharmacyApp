@@ -8,7 +8,9 @@ package Home_Log_Sign;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Calendar;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import pharmacysystem.Customer;
 
@@ -18,25 +20,15 @@ import pharmacysystem.Customer;
  */
 public class CustomerSign extends javax.swing.JFrame {
 
-    CustomerLog app;
-
     /**
      * Creates new form Home
      */
     public CustomerSign() {
-        app = new CustomerLog();
         initComponents();
         ask.setVisible(false);
         yes.setVisible(false);
         no.setVisible(false);
     }
-
-   //for signup function   
-//    public void SignUp(Customer c) {
-//        app.customerList.add(c);
-//        int i = app.customerList.indexOf(c);
-//        System.out.println(app.customerList.get(i));
-//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -296,7 +288,7 @@ public class CustomerSign extends javax.swing.JFrame {
         int a = Integer.parseInt(age.getText());
 
         if (age.getText().isEmpty() == false && a >= 18 && name.getText().isEmpty() == false && address.getText().isEmpty() == false && username.getText().isEmpty() == false && password.getText().isEmpty() == false) {
-            Customer b = new Customer(name.getText(), address.getText(), username.getText(), password.getText(), a);           
+
             try {
                 // create a mysql database connection
 
@@ -311,47 +303,74 @@ public class CustomerSign extends javax.swing.JFrame {
                 Calendar calendar = Calendar.getInstance();
                 java.sql.Date startDate = new java.sql.Date(calendar.getTime().getTime());
 
-                // the mysql insert statement
-                String query = " insert into customer(customer_id,name,address,username,password,age)"
-                        + " values (?,?,?,?,?,?)";
+//checking if username exist
+                final String queryCheck = "SELECT username from customer WHERE username = ?";
+                final PreparedStatement ps = conn.prepareStatement(queryCheck);
+                ps.setString(1, username.getText());
+                final ResultSet resultSet = ps.executeQuery();
+                if (resultSet.next()) {
+                    if (resultSet.getString("username").equals(username.getText())) {
+                        JOptionPane.showMessageDialog(null, "Username Already Taken!");
+                        java.awt.EventQueue.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                new CustomerSign().setVisible(true);
+                            }
+                        });
+                        this.dispose();
+                        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    }
+                } else {
+                    Customer b = new Customer(name.getText(), address.getText(), username.getText(), password.getText(), a);
+                    //for saving to db
+                    // the mysql insert statement
+                    String query = " insert into customer(customer_id,name,address,username,password,age)"
+                            + " values (?,?,?,?,?,?)";
 
-                // create the mysql insert preparedstatement
-                PreparedStatement preparedStmt = conn.prepareStatement(query);
-                preparedStmt.setString(1, b.getId());
-                preparedStmt.setString(2, b.getName());
-                preparedStmt.setString(3, b.getAddress());
-                preparedStmt.setString(4, b.getUsername());
-                preparedStmt.setString(5, b.getPassword());
-                preparedStmt.setInt(6, b.getAge());
+                    String id = "select count(*) from customer";
+                    PreparedStatement st = conn.prepareStatement(id);
+                    ResultSet rs = st.executeQuery();
+                    while (rs.next()) {
+                        b.customerIDno = rs.getInt("count(*)") + 1;
+                    }
+                    // create the mysql insert preparedstatement
+                    PreparedStatement preparedStmt = conn.prepareStatement(query);
+                    preparedStmt.setString(1, b.getId());
+                    preparedStmt.setString(2, b.getName());
+                    preparedStmt.setString(3, b.getAddress());
+                    preparedStmt.setString(4, b.getUsername());
+                    preparedStmt.setString(5, b.getPassword());
+                    preparedStmt.setInt(6, b.getAge());
 
-                // execute the preparedstatement
-                preparedStmt.execute();
+                    // execute the preparedstatement
+                    preparedStmt.execute();
 
-                conn.close();
+                    conn.close();
+                    JOptionPane.showMessageDialog(null, "☻Successfully Registered☻!");
+                    ask.setVisible(true);
+                    yes.setVisible(true);
+                    no.setVisible(true);
+                    address.setVisible(false);
+                    age.setVisible(false);
+                    register.setVisible(false);
+
+                    name.setVisible(false);
+                    username.setVisible(false);
+                    password.setVisible(false);
+                    jLabel1.setVisible(false);
+                    jLabel2.setVisible(false);
+                    jLabel3.setVisible(false);
+                    jLabel4.setVisible(false);
+                    jLabel5.setVisible(false);
+                    jLabel6.setVisible(false);
+                    jLabel7.setVisible(false);
+                }
+
             } catch (Exception e) {
                 System.err.println("Got an exception!");
                 System.err.println(e.getMessage());
             }
-               
-               
-            JOptionPane.showMessageDialog(null, "☻Successfully Registered☻!");
-            ask.setVisible(true);
-            yes.setVisible(true);
-            no.setVisible(true);
-            address.setVisible(false);
-            age.setVisible(false);
-            register.setVisible(false);
 
-            name.setVisible(false);
-            username.setVisible(false);
-            password.setVisible(false);
-            jLabel1.setVisible(false);
-            jLabel2.setVisible(false);
-            jLabel3.setVisible(false);
-            jLabel4.setVisible(false);
-            jLabel5.setVisible(false);
-            jLabel6.setVisible(false);
-            jLabel7.setVisible(false);
         } else if (name.getText().isEmpty() || name.getText() == null || address.getText().isEmpty() || address.getText() == null || username.getText().isEmpty() || username.getText() == null || password.getText().isEmpty() || password.getText() == null || age.getText().isEmpty() || age.getText() == null) {
             JOptionPane.showMessageDialog(null, "All are required inputs! Please provide.");
         } else {
@@ -365,7 +384,8 @@ public class CustomerSign extends javax.swing.JFrame {
                 new Sign().setVisible(true);
             }
         });
-        this.setVisible(false);
+        this.dispose();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -389,13 +409,21 @@ public class CustomerSign extends javax.swing.JFrame {
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "Thank you for using our system!");
         this.dispose();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
     }//GEN-LAST:event_noActionPerformed
 
     private void yesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yesActionPerformed
         // TODO add your handling code here:
-        app.setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new CustomerLog().setVisible(true);
+            }
+        });
         this.dispose();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }//GEN-LAST:event_yesActionPerformed
 
     /**
