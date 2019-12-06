@@ -5,11 +5,7 @@
  */
 package view;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Calendar;
+import controllers.AccountController;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Pharmacist;
@@ -19,6 +15,8 @@ import model.Pharmacist;
  * @author debuayanri_sd2022
  */
 public class PharmaSign extends javax.swing.JFrame {
+    
+    AccountController ac = new AccountController();
 
     /**
      * Creates new form Home
@@ -278,93 +276,30 @@ public class PharmaSign extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+        
         if (name.getText().isEmpty() == false && address.getText().isEmpty() == false && username.getText().isEmpty() == false && password.getText().isEmpty() == false) {
-
-            try {
-                // create a mysql database connection
-
-                //com.mysql.cj.jdbc.Driver
-                String myDriver = "com.mysql.jdbc.Driver";
-
-                String myUrl = "jdbc:mysql://localhost/rica_java";
-                Class.forName(myDriver);
-                Connection conn = DriverManager.getConnection(myUrl, "root", "");
-
-                // create a sql date object so we can use it in our INSERT statement
-                Calendar calendar = Calendar.getInstance();
-                java.sql.Date startDate = new java.sql.Date(calendar.getTime().getTime());
-
-//checking if username exist
-                final String queryCheck = "SELECT username from pharmacist WHERE username = ?";
-                final PreparedStatement ps = conn.prepareStatement(queryCheck);
-                ps.setString(1, username.getText());
-                final ResultSet resultSet = ps.executeQuery();
-                if (resultSet.next()) {
-                    if (resultSet.getString("username").equals(username.getText())) {
-                        JOptionPane.showMessageDialog(null, "Username Already Taken!");
-                        java.awt.EventQueue.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                new PharmaSign().setVisible(true);
-                            }
-                        });
-                        this.dispose();
-                        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    }
-                } else {
-                    Pharmacist b = new Pharmacist(name.getText(), address.getText(), username.getText(), password.getText());
-                    //for saving to db
-                    // the mysql insert statement
-                    String query = " insert into pharmacist(pharmacist_id,name,address,username,password)"
-                            + " values (?,?,?,?,?)";
-
-                    String id = "select count(*) from pharmacist";
-                    PreparedStatement st = conn.prepareStatement(id);
-                    ResultSet rs = st.executeQuery();
-                    while (rs.next()) {
-                        b.pharmacistID = rs.getInt("count(*)") + 1;
-                    }
-                    // create the mysql insert preparedstatement
-                    PreparedStatement preparedStmt = conn.prepareStatement(query);
-                    preparedStmt.setString(1, b.getId());
-                    preparedStmt.setString(2, b.getName());
-                    preparedStmt.setString(3, b.getAddress());
-                    preparedStmt.setString(4, b.getUsername());
-                    preparedStmt.setString(5, b.getPassword());
-
-                    // execute the preparedstatement
-                    preparedStmt.execute();
-
-                    conn.close();
-                    JOptionPane.showMessageDialog(null, "☻Successfully Registered☻!");
-                    ask1.setVisible(true);
-                    yes1.setVisible(true);
-                    no1.setVisible(true);
-                    name.setVisible(false);
-                    username.setVisible(false);
-                    address.setVisible(false);
-                    password.setVisible(false);
-                    jLabel1.setVisible(false);
-                    jLabel2.setVisible(false);
-                    jLabel3.setVisible(false);
-                    jLabel4.setVisible(false);
-                    jLabel5.setVisible(false);
-                    jLabel6.setVisible(false);
-                    jButton3.setVisible(false);
-                    jButton2.setVisible(false);
-
-                }
-
-            } catch (Exception e) {
-                System.err.println("Got an exception!");
-                System.err.println(e.getMessage());
-            }
-
+            Pharmacist c = new Pharmacist(name.getText(), address.getText(), username.getText(), password.getText());
+            ac.authentication(c, this);
+            ask1.setVisible(true);
+            yes1.setVisible(true);
+            no1.setVisible(true);
+            name.setVisible(false);
+            username.setVisible(false);
+            address.setVisible(false);
+            password.setVisible(false);
+            jLabel1.setVisible(false);
+            jLabel2.setVisible(false);
+            jLabel3.setVisible(false);
+            jLabel4.setVisible(false);
+            jLabel5.setVisible(false);
+            jLabel6.setVisible(false);
+            jButton3.setVisible(false);
+            jButton2.setVisible(false);
+            
         } else if (name.getText().isEmpty() || name.getText() == null || address.getText().isEmpty() || address.getText() == null || username.getText().isEmpty() || username.getText() == null || password.getText().isEmpty() || password.getText() == null) {
             JOptionPane.showMessageDialog(null, "All are required inputs! Please provide.");
         }
-
+        
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -375,7 +310,7 @@ public class PharmaSign extends javax.swing.JFrame {
             }
         });
         this.dispose();
-
+        
 
     }//GEN-LAST:event_jButton3ActionPerformed
 

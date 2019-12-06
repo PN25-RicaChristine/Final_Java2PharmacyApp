@@ -159,7 +159,7 @@ public class Sign extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new PharmaLog().setVisible(true);
+                new PharmaSign().setVisible(true);
             }
         });
         this.dispose();
@@ -171,7 +171,7 @@ public class Sign extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new CustomerLog().setVisible(true);
+                new CustomerSign().setVisible(true);
             }
         });
         this.dispose();

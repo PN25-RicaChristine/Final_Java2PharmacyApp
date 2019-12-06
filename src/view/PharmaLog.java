@@ -5,16 +5,8 @@
  */
 package view;
 
-import view.mainapp.PhamViewMed;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Calendar;
+import controllers.AccountController;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import model.Pharmacist;
 
 /**
@@ -23,63 +15,15 @@ import model.Pharmacist;
  */
 public class PharmaLog extends javax.swing.JFrame {
 
-    ArrayList<Pharmacist> pharmacistDB = new ArrayList<>();
+     AccountController pp = new AccountController();
 
     /**
      * Creates new form Home
      */
     public PharmaLog() {
-
-        getAllPharmacist();
         initComponents();
     }
-//for login function
 
-    public boolean logIn(Pharmacist p) {
-        for (Pharmacist pharmacistList1 : pharmacistDB) {
-            if (pharmacistList1.getUsername().equals(p.getUsername()) && pharmacistList1.getPassword().equals(p.getPassword())) {
-                p.setName(pharmacistList1.getName());
-                p.setPassword(pharmacistList1.getPassword());
-                p.setAddress(pharmacistList1.getAddress());
-                p.setUsername(pharmacistList1.getUsername());
-                p.pharmacistID = pharmacistList1.pharmacistID;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public ArrayList<Pharmacist> getAllPharmacist() {
-        try {
-// create a mysql database connection
-
-            //com.mysql.cj.jdbc.Driver
-            String myDriver = "com.mysql.jdbc.Driver";
-
-            String myUrl = "jdbc:mysql://localhost/rica_java";
-            Class.forName(myDriver);
-            Connection conn = DriverManager.getConnection(myUrl, "root", "");
-
-            // create a sql date object so we can use it in our INSERT statement
-            Calendar calendar = Calendar.getInstance();
-            java.sql.Date startDate = new java.sql.Date(calendar.getTime().getTime());
-            Statement stm;
-            stm = conn.createStatement();
-            String sql = "Select * From Pharmacist";
-            ResultSet rst;
-            rst = stm.executeQuery(sql);
-            while (rst.next()) {
-                Pharmacist ph = new Pharmacist(rst.getString("name"), rst.getString("address"), rst.getString("username"), rst.getString("password"));
-                ph.id = rst.getString("pharmacist_id");
-                pharmacistDB.add(ph);
-            }
-            conn.close();
-        } catch (Exception e) {
-            System.err.println("Got an exception!");
-            System.err.println(e.getMessage());
-        }
-        return pharmacistDB;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -229,48 +173,7 @@ public class PharmaLog extends javax.swing.JFrame {
         Pharmacist c = new Pharmacist();
         c.setUsername(username.getText());
         c.setPassword(password.getText());
-        if (logIn(c) == true) {
-            JOptionPane.showMessageDialog(null, "Successfully Loggged In!");
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-
-                    try {
-// create a mysql database connection
-
-                        //com.mysql.cj.jdbc.Driver
-                        String myDriver = "com.mysql.jdbc.Driver";
-
-                        String myUrl = "jdbc:mysql://localhost/rica_java";
-                        Class.forName(myDriver);
-                        Connection conn = DriverManager.getConnection(myUrl, "root", "");
-
-                        // create a sql date object so we can use it in our INSERT statement
-                        Calendar calendar = Calendar.getInstance();
-                        java.sql.Date startDate = new java.sql.Date(calendar.getTime().getTime());
-
-                        final String queryCheck = "SELECT pharmacist_id,username from pharmacist WHERE username = ?";
-                        final PreparedStatement ps = conn.prepareStatement(queryCheck);
-                        ps.setString(1, c.getUsername());
-                        final ResultSet resultSet = ps.executeQuery();
-
-                        if (resultSet.next()) {
-                            if (resultSet.getString("username").equals(c.getUsername())) {
-                                PhamViewMed m = new PhamViewMed();
-                                m.pharmacistName.setText(c.getName());
-                                m.pharmacistID.setText("ID: " + resultSet.getString("pharmacist_id"));
-                                m.setVisible(true);
-
-                            }
-                        }
-
-                        conn.close();
-                    } catch (Exception e) {
-                        System.err.println("Got an exception!");
-                        System.err.println(e.getMessage());
-                    }
-
-                }
-            });
+        if (pp.logIn(c) == true) {
             this.dispose();
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

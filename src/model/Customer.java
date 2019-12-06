@@ -48,13 +48,6 @@ public class Customer implements UserInvolved {
         this.age = age;
     }
 
-    public boolean isSenior() {
-        return age >= 60;
-    }
-
-    public boolean isAdult() {
-        return age >= 18 && age < 60;
-    }
 
     @Override
     public String getName() {
@@ -102,7 +95,7 @@ public class Customer implements UserInvolved {
 
     @Override
     public String toString() {
-        return "CUSTOMER NAME: " + name + " ADDRESS: " + address + " AGE: " + age + " CUSTOMER ID: " + id;
+        return "CUSTOMER NAME: " + name + " ADDRESS: " + address + " AGE: " + age;
     }
 
 }

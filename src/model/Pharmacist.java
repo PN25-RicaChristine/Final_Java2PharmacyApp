@@ -17,7 +17,6 @@ public class Pharmacist implements UserInvolved {
     private String password;
     public int pharmacistID;
     public String id;
-    private static int count;
 
     public Pharmacist() {
 
@@ -28,8 +27,6 @@ public class Pharmacist implements UserInvolved {
         this.address = address;
         this.username = username;
         this.password = password;
-        count++;
-        pharmacistID = count;
         id = "PhD-SD2022-" + pharmacistID;
     }
 
