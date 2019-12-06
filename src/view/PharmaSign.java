@@ -15,7 +15,7 @@ import model.Pharmacist;
  * @author debuayanri_sd2022
  */
 public class PharmaSign extends javax.swing.JFrame {
-    
+
     AccountController ac = new AccountController();
 
     /**
@@ -276,30 +276,34 @@ public class PharmaSign extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
-        if (name.getText().isEmpty() == false && address.getText().isEmpty() == false && username.getText().isEmpty() == false && password.getText().isEmpty() == false) {
-            Pharmacist c = new Pharmacist(name.getText(), address.getText(), username.getText(), password.getText());
-            ac.authentication(c, this);
-            ask1.setVisible(true);
-            yes1.setVisible(true);
-            no1.setVisible(true);
-            name.setVisible(false);
-            username.setVisible(false);
-            address.setVisible(false);
-            password.setVisible(false);
-            jLabel1.setVisible(false);
-            jLabel2.setVisible(false);
-            jLabel3.setVisible(false);
-            jLabel4.setVisible(false);
-            jLabel5.setVisible(false);
-            jLabel6.setVisible(false);
-            jButton3.setVisible(false);
-            jButton2.setVisible(false);
-            
-        } else if (name.getText().isEmpty() || name.getText() == null || address.getText().isEmpty() || address.getText() == null || username.getText().isEmpty() || username.getText() == null || password.getText().isEmpty() || password.getText() == null) {
-            JOptionPane.showMessageDialog(null, "All are required inputs! Please provide.");
+        try {
+            if (name.getText().isEmpty() == false && address.getText().isEmpty() == false && username.getText().isEmpty() == false && password.getText().isEmpty() == false) {
+                Pharmacist c = new Pharmacist(name.getText(), address.getText(), username.getText(), password.getText());
+                ac.authentication(c, this);
+                ask1.setVisible(true);
+                yes1.setVisible(true);
+                no1.setVisible(true);
+                name.setVisible(false);
+                username.setVisible(false);
+                address.setVisible(false);
+                password.setVisible(false);
+                jLabel1.setVisible(false);
+                jLabel2.setVisible(false);
+                jLabel3.setVisible(false);
+                jLabel4.setVisible(false);
+                jLabel5.setVisible(false);
+                jLabel6.setVisible(false);
+                jButton3.setVisible(false);
+                jButton2.setVisible(false);
+
+            } else if (name.getText().isEmpty() || name.getText() == null || address.getText().isEmpty() || address.getText() == null || username.getText().isEmpty() || username.getText() == null || password.getText().isEmpty() || password.getText() == null) {
+                JOptionPane.showMessageDialog(null, "All are required inputs! Please provide.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Make sure you input the correct data types.");
+            System.err.println(e.getMessage());
         }
-        
+
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -310,7 +314,7 @@ public class PharmaSign extends javax.swing.JFrame {
             }
         });
         this.dispose();
-        
+
 
     }//GEN-LAST:event_jButton3ActionPerformed
 

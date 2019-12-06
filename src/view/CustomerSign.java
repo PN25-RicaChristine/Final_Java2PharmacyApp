@@ -277,33 +277,36 @@ public class CustomerSign extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
+        try {
+            int a = Integer.parseInt(age.getText());
+            if (age.getText().isEmpty() == false && a >= 18 && name.getText().isEmpty() == false && address.getText().isEmpty() == false && username.getText().isEmpty() == false && password.getText().isEmpty() == false) {
+                Customer c = new Customer(name.getText(), address.getText(), username.getText(), password.getText(), a);
+                ac.authentication(c, this);
+                ask.setVisible(true);
+                yes.setVisible(true);
+                no.setVisible(true);
+                address.setVisible(false);
+                age.setVisible(false);
+                register.setVisible(false);
+                name.setVisible(false);
+                username.setVisible(false);
+                password.setVisible(false);
+                jLabel1.setVisible(false);
+                jLabel2.setVisible(false);
+                jLabel3.setVisible(false);
+                jLabel4.setVisible(false);
+                jLabel5.setVisible(false);
+                jLabel6.setVisible(false);
+                jLabel7.setVisible(false);
 
-        int a = Integer.parseInt(age.getText());
-
-        if (age.getText().isEmpty() == false && a >= 18 && name.getText().isEmpty() == false && address.getText().isEmpty() == false && username.getText().isEmpty() == false && password.getText().isEmpty() == false) {
-            Customer c = new Customer(name.getText(), address.getText(), username.getText(), password.getText(), a);
-            ac.authentication(c, this);
-            ask.setVisible(true);
-            yes.setVisible(true);
-            no.setVisible(true);
-            address.setVisible(false);
-            age.setVisible(false);
-            register.setVisible(false);
-            name.setVisible(false);
-            username.setVisible(false);
-            password.setVisible(false);
-            jLabel1.setVisible(false);
-            jLabel2.setVisible(false);
-            jLabel3.setVisible(false);
-            jLabel4.setVisible(false);
-            jLabel5.setVisible(false);
-            jLabel6.setVisible(false);
-            jLabel7.setVisible(false);
-
-        } else if (name.getText().isEmpty() || name.getText() == null || address.getText().isEmpty() || address.getText() == null || username.getText().isEmpty() || username.getText() == null || password.getText().isEmpty() || password.getText() == null || age.getText().isEmpty() || age.getText() == null) {
-            JOptionPane.showMessageDialog(null, "All are required inputs! Please provide.");
-        } else {
-            JOptionPane.showMessageDialog(null, "✖Sorry, only adults (18 yrs. old and above) are allowed to use this system!\nThank you for using our system!☻☻");
+            } else if (name.getText().isEmpty() || name.getText() == null || address.getText().isEmpty() || address.getText() == null || username.getText().isEmpty() || username.getText() == null || password.getText().isEmpty() || password.getText() == null || age.getText().isEmpty() || age.getText() == null) {
+                JOptionPane.showMessageDialog(null, "All are required inputs! Please provide.");
+            } else {
+                JOptionPane.showMessageDialog(null, "✖Sorry, only adults (18 yrs. old and above) are allowed to use this system!\nThank you for using our system!☻☻");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Make sure you input the correct data types.");
+            System.err.println(e.getMessage());
         }
     }//GEN-LAST:event_registerActionPerformed
 
