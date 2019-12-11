@@ -7,6 +7,7 @@ package view.mainapp;
 
 import controllers.MedicineController;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +17,7 @@ import javax.swing.JOptionPane;
 public class CusViewMed extends javax.swing.JFrame {
 
     MedicineController mdc = new MedicineController();
+    public boolean discounted;
 
     /**
      * Creates new form CustomerMedicineOption
@@ -42,9 +44,9 @@ public class CusViewMed extends javax.swing.JFrame {
         MainContent = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         medicineTable = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        placeOrder = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        viewOrders = new javax.swing.JButton();
         imageLabel = new javax.swing.JLabel();
         customerID = new javax.swing.JLabel();
         Logout = new javax.swing.JButton();
@@ -122,17 +124,27 @@ public class CusViewMed extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton2.setBackground(new java.awt.Color(204, 255, 255));
-        jButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton2.setText("Place Order");
+        placeOrder.setBackground(new java.awt.Color(204, 255, 255));
+        placeOrder.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        placeOrder.setText("Place Order");
+        placeOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                placeOrderActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(204, 255, 255));
         jButton3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton3.setText("View Medicines");
 
-        jButton5.setBackground(new java.awt.Color(204, 255, 255));
-        jButton5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton5.setText("View Orders");
+        viewOrders.setBackground(new java.awt.Color(204, 255, 255));
+        viewOrders.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        viewOrders.setText("View Orders");
+        viewOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewOrdersActionPerformed(evt);
+            }
+        });
 
         imageLabel.setBackground(new java.awt.Color(255, 204, 204));
         imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -164,8 +176,8 @@ public class CusViewMed extends javax.swing.JFrame {
                     .addComponent(customerName, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(Logout, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(placeOrder, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(viewOrders, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(imageLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(customerID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)))
@@ -189,9 +201,9 @@ public class CusViewMed extends javax.swing.JFrame {
                         .addGap(23, 23, 23)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(viewOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(placeOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -218,6 +230,21 @@ public class CusViewMed extends javax.swing.JFrame {
         this.dispose();
         JOptionPane.showMessageDialog(null, "Thank you for using our system!");
     }//GEN-LAST:event_LogoutActionPerformed
+
+    private void viewOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewOrdersActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewOrdersActionPerformed
+
+    private void placeOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placeOrderActionPerformed
+        // TODO add your handling code here:
+        CusPlaceOrder cm = new CusPlaceOrder();
+        cm.customerName.setText(customerName.getText());
+        cm.customerID.setText(customerID.getText());
+        cm.discounted = this.discounted;
+        cm.setVisible(true);
+        this.dispose();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }//GEN-LAST:event_placeOrderActionPerformed
 
     /**
      * @param args the command line arguments
@@ -275,12 +302,12 @@ public class CusViewMed extends javax.swing.JFrame {
     public javax.swing.JLabel customerID;
     public javax.swing.JLabel customerName;
     private javax.swing.JLabel imageLabel;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable medicineTable;
+    private javax.swing.JButton placeOrder;
+    private javax.swing.JButton viewOrders;
     // End of variables declaration//GEN-END:variables
 }
