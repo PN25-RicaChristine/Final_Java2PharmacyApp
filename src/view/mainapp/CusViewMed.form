@@ -59,13 +59,16 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="customerName" pref="179" max="32767" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="Logout" alignment="0" max="32767" attributes="0"/>
-                          <Component id="placeOrder" alignment="0" max="32767" attributes="0"/>
-                          <Component id="viewOrders" alignment="0" max="32767" attributes="0"/>
-                          <Component id="imageLabel" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
-                          <Component id="customerID" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
-                          <Component id="jButton3" alignment="0" pref="157" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="Logout" alignment="0" max="32767" attributes="0"/>
+                              <Component id="placeOrder" alignment="0" max="32767" attributes="0"/>
+                              <Component id="viewOrders" alignment="0" max="32767" attributes="0"/>
+                              <Component id="imageLabel" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
+                              <Component id="customerID" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
+                              <Component id="jButton3" alignment="0" pref="157" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -87,7 +90,7 @@
                           <Component id="customerName" min="-2" pref="23" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="customerID" min="-2" pref="23" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                           <Component id="jButton3" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="viewOrders" min="-2" pref="40" max="-2" attributes="0"/>

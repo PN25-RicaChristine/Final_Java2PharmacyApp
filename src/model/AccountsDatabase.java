@@ -30,7 +30,6 @@ public class AccountsDatabase {
     public ArrayList<Customer> customerDB = new ArrayList<>();
     public ArrayList<Pharmacist> pharmacistDB = new ArrayList<>();
 
-
     public AccountsDatabase() {
         getAllCustomer();
         getAllPharmacist();
@@ -65,7 +64,6 @@ public class AccountsDatabase {
     }
     //---------------------------------------------------------
 
-    
     //pharmacist getAlltheCustomer and put in the table
     public void pharmacistRetrieveCust(JTable table) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -90,11 +88,8 @@ public class AccountsDatabase {
             System.err.println(e.getMessage());
         }
     }
-    
-    //--------------------------------------------------------- 
-    
 
-    
+    //--------------------------------------------------------- 
     //sending to mainapp
     public void CustMainApp(Customer c) {
         JOptionPane.showMessageDialog(null, "Successfully Loggged In!");
@@ -260,10 +255,10 @@ public class AccountsDatabase {
                 preparedStmt.setString(4, b.getUsername());
                 preparedStmt.setString(5, b.getPassword());
                 preparedStmt.setInt(6, b.getAge());
-                if(b.getAge()>=60){
+                if (b.getAge() >= 60) {
                     preparedStmt.setString(7, "yes");
-                }else{
-                     preparedStmt.setString(7, "no");
+                } else {
+                    preparedStmt.setString(7, "no");
                 }
 
                 // execute the preparedstatement
@@ -347,6 +342,30 @@ public class AccountsDatabase {
     }
     //---------------------------------------------------------
 
-    
-   
+    //check discount
+    public String checkDiscount(String id) {
+        String dis = null;
+        try {
+            String myDriver = "com.mysql.jdbc.Driver";
+            String myUrl = "jdbc:mysql://localhost/rica_java";
+            Class.forName(myDriver);
+            Connection conn = DriverManager.getConnection(myUrl, "root", "");
+
+            final String queryCheck = "SELECT discounted from customer WHERE customer_id = ?";
+            final PreparedStatement ps = conn.prepareStatement(queryCheck);
+            ps.setString(1, id);
+            final ResultSet resultSet = ps.executeQuery();
+
+            if (resultSet.next()) {
+                dis = resultSet.getString("discounted");
+            }
+            conn.close();
+        } catch (Exception e) {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+        return dis;
+
+    }
+
 }

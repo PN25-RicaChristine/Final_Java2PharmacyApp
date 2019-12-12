@@ -5,15 +5,9 @@
  */
 package view.mainapp;
 
+import controllers.AccountController;
 import controllers.MedicineController;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import controllers.OrderController;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -26,7 +20,8 @@ import javax.swing.table.DefaultTableModel;
 public class CusPlaceOrder extends javax.swing.JFrame {
 
     MedicineController mdc = new MedicineController();
-    public boolean discounted;
+    AccountController ac = new AccountController();
+    OrderController od = new OrderController();
 
     /**
      * Creates new form CustomerMedicineOption
@@ -61,7 +56,7 @@ public class CusPlaceOrder extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         comments = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        payment = new javax.swing.JComboBox<String>();
+        payment = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         selectedmed = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -136,6 +131,7 @@ public class CusPlaceOrder extends javax.swing.JFrame {
         medicineTable.setAutoscrolls(false);
         medicineTable.setGridColor(new java.awt.Color(153, 153, 153));
         medicineTable.setSelectionBackground(new java.awt.Color(51, 51, 51));
+        medicineTable.setSelectionForeground(new java.awt.Color(51, 255, 51));
         medicineTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 medicineTableMouseClicked(evt);
@@ -222,7 +218,7 @@ public class CusPlaceOrder extends javax.swing.JFrame {
         jLabel8.setText("PAYMENT:");
 
         payment.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        payment.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cash on Delivery", "Credit Card" }));
+        payment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash on Delivery", "Credit Card" }));
         payment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 paymentActionPerformed(evt);
@@ -318,12 +314,17 @@ public class CusPlaceOrder extends javax.swing.JFrame {
         discount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         discount.setText("0%");
         discount.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        discount.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                discountPropertyChange(evt);
+            }
+        });
 
         label4.setBackground(new java.awt.Color(255, 255, 255));
         label4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         label4.setForeground(new java.awt.Color(51, 51, 51));
         label4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label4.setText("AMOUNT :");
+        label4.setText("TOTAL AMOUNT :");
 
         total_amount.setBackground(new java.awt.Color(255, 255, 255));
         total_amount.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
@@ -331,6 +332,11 @@ public class CusPlaceOrder extends javax.swing.JFrame {
         total_amount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         total_amount.setText("0.00");
         total_amount.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        total_amount.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                total_amountPropertyChange(evt);
+            }
+        });
 
         javax.swing.GroupLayout MainContentLayout = new javax.swing.GroupLayout(MainContent);
         MainContent.setLayout(MainContentLayout);
@@ -386,8 +392,8 @@ public class CusPlaceOrder extends javax.swing.JFrame {
                                 .addGroup(MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(amount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(discount, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(79, 79, 79)
-                                .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(43, 43, 43)
+                                .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(total_amount, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))))
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -540,9 +546,9 @@ public class CusPlaceOrder extends javax.swing.JFrame {
                         .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(customerName, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(customerID, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23)
+                        .addGap(35, 35, 35)
                         .addComponent(viewMedicine, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -550,7 +556,7 @@ public class CusPlaceOrder extends javax.swing.JFrame {
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(10, 10, 10)
@@ -640,57 +646,22 @@ public class CusPlaceOrder extends javax.swing.JFrame {
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         // TODO add your handling code here:
-        try {
-            // create a mysql database connection
+        DefaultTableModel order = (DefaultTableModel) orderTable.getModel();
+        if (orderTable.getRowCount() == 0) {
+            error.setText("No orders!");
+        } else {
+            String order_id = od.addOrder(customerID, required_date, total_amount, payment, comments);
+            for (int i = 0; i < orderTable.getRowCount(); i++) {
+                String drug_id = order.getValueAt(i, 0).toString();
+                int quantity_ordered = Integer.parseInt(order.getValueAt(i, 3).toString());
+                double subtotal = Double.parseDouble(order.getValueAt(i, 4).toString());
+                od.addDetails(order_id, drug_id, quantity_ordered, subtotal);
 
-            //com.mysql.cj.jdbc.Driver
-            String myDriver = "com.mysql.jdbc.Driver";
-
-            String myUrl = "jdbc:mysql://localhost/rica_java";
-            Class.forName(myDriver);
-            Connection conn = DriverManager.getConnection(myUrl, "root", "");
-
-            //for saving to db
-            // the mysql insert statement
-            String query = " insert into orders(order_id,customer_id, date_time,required_date,total_amount,discounted,payment,comment)"
-                    + " values (?,?,?,?,?,?,?,?)";
-            String id = "select count(*) from orders";
-            PreparedStatement st = conn.prepareStatement(id);
-            ResultSet rs = st.executeQuery();
-            String order_id = "ORID-";
-            while (rs.next()) {
-                order_id += rs.getString("count(*)");
             }
-
-            Date date = Calendar.getInstance().getTime();
-            DateFormat dateFormat = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss");
-            String strDate = dateFormat.format(date);
-            // create the mysql insert preparedstatement
-            PreparedStatement preparedStmt = conn.prepareStatement(query);
-            preparedStmt.setString(1, order_id);
-            preparedStmt.setString(2, customerID.getText());
-            preparedStmt.setString(3, strDate);
-            preparedStmt.setString(4, required_date.getText());
-            preparedStmt.setDouble(5, Double.parseDouble(total_amount.getText()));
-            if (discounted == true) {
-                preparedStmt.setString(6, "yes");
-            } else {
-                preparedStmt.setString(6, "no");
-            }
-
-            preparedStmt.setString(7, payment.getSelectedItem().toString());
-            preparedStmt.setString(8, comments.getText());
-
-            // execute the preparedstatement
-            preparedStmt.execute();
-
-            conn.close();
             JOptionPane.showMessageDialog(null, "☻Successfully Placed Orders☻!");
-
-        } catch (Exception e) {
-            System.err.println("Got an exception!");
-            System.err.println(e.getMessage());
         }
+
+
     }//GEN-LAST:event_submitActionPerformed
 
     private void paymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentActionPerformed
@@ -720,74 +691,37 @@ public class CusPlaceOrder extends javax.swing.JFrame {
         CusViewMed cm = new CusViewMed();
         cm.customerName.setText(customerName.getText());
         cm.customerID.setText(customerID.getText());
-        cm.discounted = this.discounted;
         cm.setVisible(true);
         this.dispose();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }//GEN-LAST:event_viewMedicineActionPerformed
 
+    private void total_amountPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_total_amountPropertyChange
+        // TODO add your handling code here:
+        //jlabel total amount here
+    }//GEN-LAST:event_total_amountPropertyChange
+
+    private void discountPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_discountPropertyChange
+        // TODO add your handling code here:
+//        if(ac.discounted(customerID.getText())){
+//            discount.setText("20%");
+//        }else{
+//            discount.setText("0%");
+//        }
+
+
+    }//GEN-LAST:event_discountPropertyChange
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CusPlaceOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CusPlaceOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CusPlaceOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CusPlaceOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new CusPlaceOrder().setVisible(true);
+
             }
         });
     }
@@ -799,7 +733,7 @@ public class CusPlaceOrder extends javax.swing.JFrame {
     private javax.swing.JTextField comments;
     public javax.swing.JLabel customerID;
     public javax.swing.JLabel customerName;
-    private javax.swing.JLabel discount;
+    public javax.swing.JLabel discount;
     private javax.swing.JLabel error;
     private javax.swing.JButton go;
     private javax.swing.JLabel imageLabel;
