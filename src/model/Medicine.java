@@ -5,8 +5,6 @@
  */
 package model;
 
-import java.util.logging.Logger;
-
 /**
  *
  * @author debuayanri_sd2022

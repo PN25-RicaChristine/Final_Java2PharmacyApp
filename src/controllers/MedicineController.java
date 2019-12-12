@@ -5,9 +5,9 @@
  */
 package controllers;
 
+import model.Medicine;
 import javax.swing.JFrame;
 import javax.swing.JTable;
-import model.Medicine;
 import model.MedicineDatabase;
 
 /**

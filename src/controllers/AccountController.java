@@ -5,11 +5,11 @@
  */
 package controllers;
 
+import model.Customer;
+import model.Pharmacist;
 import javax.swing.JFrame;
 import javax.swing.JTable;
-import model.Customer;
 import model.AccountsDatabase;
-import model.Pharmacist;
 
 /**
  *
