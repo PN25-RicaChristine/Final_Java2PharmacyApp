@@ -627,13 +627,16 @@ public class CusPlaceOrder extends javax.swing.JFrame {
     private void goActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goActionPerformed
         // TODO add your handling code here:
         go.setVisible(true);
+        double a = 0;
         error.setText("");
         DefaultTableModel model = (DefaultTableModel) medicineTable.getModel();
         DefaultTableModel order = (DefaultTableModel) orderTable.getModel();
         try {
             if (!quantity.getText().trim().equals("") && !selectedmed.getText().trim().equals("")) {
+                
                 double subtotal = Double.parseDouble(model.getValueAt(medicineTable.getSelectedRow(), 5).toString()) * Double.parseDouble(quantity.getText());
                 order.addRow(new Object[]{model.getValueAt(medicineTable.getSelectedRow(), 0).toString(), model.getValueAt(medicineTable.getSelectedRow(), 1).toString(), model.getValueAt(medicineTable.getSelectedRow(), 5), Integer.parseInt(quantity.getText()), subtotal});
+                amount.setText(""+(a+subtotal));
             } else {
                 error.setText("Select medicine and input quantity.");
             }
