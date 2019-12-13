@@ -8,6 +8,7 @@ package view.mainapp;
 import controllers.AccountController;
 import controllers.MedicineController;
 import controllers.OrderController;
+import java.text.DecimalFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -22,13 +23,15 @@ public class CusPlaceOrder extends javax.swing.JFrame {
     MedicineController mdc = new MedicineController();
     AccountController ac = new AccountController();
     OrderController od = new OrderController();
+   double a= 0;
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
 
     /**
      * Creates new form CustomerMedicineOption
      */
     public CusPlaceOrder() {
         initComponents();
-        ImageIcon icon = new ImageIcon("C:\\Users\\debuayanri_sd2022\\Desktop\\RCDMed_App\\src\\asset\\personal.png");
+        ImageIcon icon = new ImageIcon("C:\\Users\\debuayanri_sd2022\\Desktop\\Final_Java2PharmacyApp\\src\\asset\\personal.png");
         imageLabel.setIcon(icon);
         mdc.getAllMed(medicineTable);
 
@@ -68,12 +71,8 @@ public class CusPlaceOrder extends javax.swing.JFrame {
         quantity = new javax.swing.JTextField();
         required_date = new javax.swing.JTextField();
         label = new javax.swing.JLabel();
-        label1 = new javax.swing.JLabel();
-        label3 = new javax.swing.JLabel();
         amount = new javax.swing.JLabel();
-        discount = new javax.swing.JLabel();
         label4 = new javax.swing.JLabel();
-        total_amount = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         viewMedicine = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -289,34 +288,15 @@ public class CusPlaceOrder extends javax.swing.JFrame {
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setText("Once submitted you can no longer modify your order.");
 
-        label1.setBackground(new java.awt.Color(255, 255, 255));
-        label1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        label1.setForeground(new java.awt.Color(51, 51, 51));
-        label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label1.setText("AMOUNT :");
-
-        label3.setBackground(new java.awt.Color(255, 255, 255));
-        label3.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        label3.setForeground(new java.awt.Color(51, 51, 51));
-        label3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label3.setText("DISCOUNT:");
-
         amount.setBackground(new java.awt.Color(255, 255, 255));
-        amount.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        amount.setForeground(new java.awt.Color(51, 51, 51));
+        amount.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        amount.setForeground(new java.awt.Color(0, 0, 204));
         amount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         amount.setText("0.00");
         amount.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-
-        discount.setBackground(new java.awt.Color(255, 255, 255));
-        discount.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        discount.setForeground(new java.awt.Color(51, 51, 51));
-        discount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        discount.setText("0%");
-        discount.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        discount.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        amount.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                discountPropertyChange(evt);
+                amountPropertyChange(evt);
             }
         });
 
@@ -325,18 +305,6 @@ public class CusPlaceOrder extends javax.swing.JFrame {
         label4.setForeground(new java.awt.Color(51, 51, 51));
         label4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label4.setText("TOTAL AMOUNT :");
-
-        total_amount.setBackground(new java.awt.Color(255, 255, 255));
-        total_amount.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        total_amount.setForeground(new java.awt.Color(0, 204, 51));
-        total_amount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        total_amount.setText("0.00");
-        total_amount.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        total_amount.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                total_amountPropertyChange(evt);
-            }
-        });
 
         javax.swing.GroupLayout MainContentLayout = new javax.swing.GroupLayout(MainContent);
         MainContent.setLayout(MainContentLayout);
@@ -373,36 +341,30 @@ public class CusPlaceOrder extends javax.swing.JFrame {
                             .addGroup(MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(MainContentLayout.createSequentialGroup()
                                     .addComponent(label, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(submit))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(submit)
+                                    .addGap(6, 6, 6))
                                 .addGroup(MainContentLayout.createSequentialGroup()
                                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(comments, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(MainContentLayout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jScrollPane2))
-                            .addGroup(MainContentLayout.createSequentialGroup()
-                                .addGap(224, 224, 224)
-                                .addGroup(MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(label3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(amount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(discount, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(43, 43, 43)
+                                .addGap(456, 456, 456)
                                 .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(total_amount, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))))
+                                .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(MainContentLayout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jScrollPane2))))
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(MainContentLayout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32))
+                .addContainerGap())
         );
         MainContentLayout.setVerticalGroup(
             MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -440,7 +402,7 @@ public class CusPlaceOrder extends javax.swing.JFrame {
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(payment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addGroup(MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(MainContentLayout.createSequentialGroup()
                         .addGroup(MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -449,30 +411,23 @@ public class CusPlaceOrder extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(label)
-                            .addComponent(submit))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(MainContentLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addGroup(MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(total_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(MainContentLayout.createSequentialGroup()
-                                    .addComponent(amount)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(discount)
-                                        .addComponent(label3)))
-                                .addGroup(MainContentLayout.createSequentialGroup()
-                                    .addComponent(label1)
-                                    .addGap(20, 20, 20))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(submit)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainContentLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(12, 12, 12))
         );
 
         jButton2.setBackground(new java.awt.Color(204, 255, 255));
         jButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton2.setText("Place Order");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         viewMedicine.setBackground(new java.awt.Color(204, 255, 255));
         viewMedicine.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -486,6 +441,11 @@ public class CusPlaceOrder extends javax.swing.JFrame {
         jButton5.setBackground(new java.awt.Color(204, 255, 255));
         jButton5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton5.setText("View Orders");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         imageLabel.setBackground(new java.awt.Color(255, 204, 204));
         imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -528,12 +488,12 @@ public class CusPlaceOrder extends javax.swing.JFrame {
                     .addComponent(customerName, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MainContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(MainContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1418, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1403, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jPanel1Layout.setVerticalGroup(
@@ -568,13 +528,11 @@ public class CusPlaceOrder extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -627,16 +585,15 @@ public class CusPlaceOrder extends javax.swing.JFrame {
     private void goActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goActionPerformed
         // TODO add your handling code here:
         go.setVisible(true);
-        double a = 0;
+
         error.setText("");
         DefaultTableModel model = (DefaultTableModel) medicineTable.getModel();
         DefaultTableModel order = (DefaultTableModel) orderTable.getModel();
         try {
             if (!quantity.getText().trim().equals("") && !selectedmed.getText().trim().equals("")) {
-                
                 double subtotal = Double.parseDouble(model.getValueAt(medicineTable.getSelectedRow(), 5).toString()) * Double.parseDouble(quantity.getText());
                 order.addRow(new Object[]{model.getValueAt(medicineTable.getSelectedRow(), 0).toString(), model.getValueAt(medicineTable.getSelectedRow(), 1).toString(), model.getValueAt(medicineTable.getSelectedRow(), 5), Integer.parseInt(quantity.getText()), subtotal});
-                amount.setText(""+(a+subtotal));
+                a += subtotal;
             } else {
                 error.setText("Select medicine and input quantity.");
             }
@@ -645,6 +602,7 @@ public class CusPlaceOrder extends javax.swing.JFrame {
             error.setText("Make sure you input the correct data types.");
             System.err.println(e.getMessage());
         }
+        amount.setText(String.valueOf(df2.format(a)));
     }//GEN-LAST:event_goActionPerformed
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
@@ -653,7 +611,7 @@ public class CusPlaceOrder extends javax.swing.JFrame {
         if (orderTable.getRowCount() == 0) {
             error.setText("No orders!");
         } else {
-            String order_id = od.addOrder(customerID, required_date, total_amount, payment, comments);
+            String order_id = od.addOrder(customerID, required_date, amount, payment, comments);
             for (int i = 0; i < orderTable.getRowCount(); i++) {
                 String drug_id = order.getValueAt(i, 0).toString();
                 int quantity_ordered = Integer.parseInt(order.getValueAt(i, 3).toString());
@@ -663,6 +621,19 @@ public class CusPlaceOrder extends javax.swing.JFrame {
             }
             JOptionPane.showMessageDialog(null, "☻Successfully Placed Orders☻!");
         }
+
+        quantity.setText(null);
+        required_date.setText(null);
+        comments.setText(null);
+        amount.setText("0.00");
+
+        int rowCount = orderTable.getRowCount();
+//Remove rows one by one from the end of the table
+        for (int i = rowCount - 1; i >= 0; i--) {
+            order.removeRow(i);
+        }
+        mdc.getAllMed(medicineTable);
+        
 
 
     }//GEN-LAST:event_submitActionPerformed
@@ -699,21 +670,25 @@ public class CusPlaceOrder extends javax.swing.JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }//GEN-LAST:event_viewMedicineActionPerformed
 
-    private void total_amountPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_total_amountPropertyChange
+    private void amountPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_amountPropertyChange
         // TODO add your handling code here:
-        //jlabel total amount here
-    }//GEN-LAST:event_total_amountPropertyChange
 
-    private void discountPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_discountPropertyChange
+    }//GEN-LAST:event_amountPropertyChange
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-//        if(ac.discounted(customerID.getText())){
-//            discount.setText("20%");
-//        }else{
-//            discount.setText("0%");
-//        }
+        CusViewOrders cm = new CusViewOrders();
+        cm.customerName.setText(customerName.getText());
+        cm.customerID.setText(customerID.getText());
+        od.getCustOrder(cm.orderIdTable, customerID);
+        cm.setVisible(true);
+        this.dispose();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
-
-    }//GEN-LAST:event_discountPropertyChange
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -736,7 +711,6 @@ public class CusPlaceOrder extends javax.swing.JFrame {
     private javax.swing.JTextField comments;
     public javax.swing.JLabel customerID;
     public javax.swing.JLabel customerName;
-    public javax.swing.JLabel discount;
     private javax.swing.JLabel error;
     private javax.swing.JButton go;
     private javax.swing.JLabel imageLabel;
@@ -754,9 +728,7 @@ public class CusPlaceOrder extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel label;
-    private javax.swing.JLabel label1;
     private javax.swing.JLabel label2;
-    private javax.swing.JLabel label3;
     private javax.swing.JLabel label4;
     private javax.swing.JLabel label5;
     public javax.swing.JTable medicineTable;
@@ -767,7 +739,6 @@ public class CusPlaceOrder extends javax.swing.JFrame {
     private javax.swing.JTextField required_date;
     private javax.swing.JLabel selectedmed;
     private javax.swing.JButton submit;
-    private javax.swing.JLabel total_amount;
     private javax.swing.JButton viewMedicine;
     // End of variables declaration//GEN-END:variables
 }

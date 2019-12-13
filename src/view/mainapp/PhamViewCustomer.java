@@ -6,6 +6,7 @@
 package view.mainapp;
 
 import controllers.AccountController;
+import controllers.OrderController;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -17,12 +18,13 @@ import javax.swing.JOptionPane;
 public class PhamViewCustomer extends javax.swing.JFrame {
 
     AccountController ac = new AccountController();
+    OrderController od = new OrderController();
     /**
      * Creates new form PharmacistMedicineOption
      */
     public PhamViewCustomer() {
         initComponents();
-        ImageIcon icon = new ImageIcon("C:\\Users\\debuayanri_sd2022\\Desktop\\RCDMed_App\\src\\asset\\pharma.png");
+        ImageIcon icon = new ImageIcon("C:\\Users\\debuayanri_sd2022\\Desktop\\Final_Java2PharmacyApp\\src\\asset\\pharma.png");
         imageLabel.setIcon(icon);
         ac.viewCustomer(customerTable);
 
@@ -84,6 +86,11 @@ public class PhamViewCustomer extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(204, 255, 255));
         jButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton2.setText("View Customers");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         viewMed.setBackground(new java.awt.Color(204, 255, 255));
         viewMed.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -225,6 +232,13 @@ public class PhamViewCustomer extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+         PhamViewOrders cm = new  PhamViewOrders();
+        cm.pharmacistName.setText(pharmacistName.getText());
+        cm.pharmacistID.setText(pharmacistID.getText());
+        od.getCustomerAllOrder(cm.orderTable);
+        cm.setVisible(true);
+        this.dispose();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
@@ -264,6 +278,10 @@ public class PhamViewCustomer extends javax.swing.JFrame {
     private void bBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bBackMouseClicked
 
     }//GEN-LAST:event_bBackMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -311,7 +329,7 @@ public class PhamViewCustomer extends javax.swing.JFrame {
     private javax.swing.JButton ControlMed;
     private javax.swing.JButton bBack;
     private javax.swing.JButton bDelete1;
-    private javax.swing.JTable customerTable;
+    public javax.swing.JTable customerTable;
     private javax.swing.JLabel imageLabel;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;

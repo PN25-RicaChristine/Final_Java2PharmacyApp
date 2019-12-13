@@ -6,9 +6,12 @@
 package view.mainapp;
 
 import controllers.MedicineController;
+import controllers.OrderController;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.Medicine;
 
@@ -19,13 +22,14 @@ import model.Medicine;
 public class PhamControlMed extends javax.swing.JFrame {
 
     MedicineController mdc = new MedicineController();
+    OrderController od = new OrderController();
 
     /**
      * Creates new form PharmacistMedicineOption
      */
     public PhamControlMed() {
         initComponents();
-        ImageIcon icon = new ImageIcon("C:\\Users\\debuayanri_sd2022\\Desktop\\RCDMed_App\\src\\asset\\pharma.png");
+        ImageIcon icon = new ImageIcon("C:\\Users\\debuayanri_sd2022\\Desktop\\Final_Java2PharmacyApp\\src\\asset\\pharma.png");
         imageLabel.setIcon(icon);
         mdc.getAllMed(tblProduct);
     }
@@ -468,6 +472,13 @@ public class PhamControlMed extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        PhamViewOrders cm = new  PhamViewOrders();
+        cm.pharmacistName.setText(pharmacistName.getText());
+        cm.pharmacistID.setText(pharmacistID.getText());
+        od.getCustomerAllOrder(cm.orderTable);
+        cm.setVisible(true);
+        this.dispose();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed

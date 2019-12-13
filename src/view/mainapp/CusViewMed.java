@@ -7,6 +7,7 @@ package view.mainapp;
 
 import controllers.AccountController;
 import controllers.MedicineController;
+import controllers.OrderController;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -19,13 +20,14 @@ public class CusViewMed extends javax.swing.JFrame {
 
     MedicineController mdc = new MedicineController();
     AccountController ac = new AccountController();
+    OrderController od = new OrderController();
 
     /**
      * Creates new form CustomerMedicineOption
      */
     public CusViewMed() {
         initComponents();
-        ImageIcon icon = new ImageIcon("C:\\Users\\debuayanri_sd2022\\Desktop\\RCDMed_App\\src\\asset\\personal.png");
+        ImageIcon icon = new ImageIcon("C:\\Users\\debuayanri_sd2022\\Desktop\\Final_Java2PharmacyApp\\src\\asset\\personal.png");
         imageLabel.setIcon(icon);
         mdc.getAllMed(medicineTable);
 
@@ -236,6 +238,13 @@ public class CusViewMed extends javax.swing.JFrame {
 
     private void viewOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewOrdersActionPerformed
         // TODO add your handling code here:
+        CusViewOrders cm = new CusViewOrders();
+        cm.customerName.setText(customerName.getText());
+        cm.customerID.setText(customerID.getText());
+        od.getCustOrder(cm.orderIdTable, customerID);
+        cm.setVisible(true);
+        this.dispose();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }//GEN-LAST:event_viewOrdersActionPerformed
 
     private void placeOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placeOrderActionPerformed
@@ -243,7 +252,7 @@ public class CusViewMed extends javax.swing.JFrame {
         CusPlaceOrder cm = new CusPlaceOrder();
         cm.customerName.setText(customerName.getText());
         cm.customerID.setText(customerID.getText());
- 
+
         cm.setVisible(true);
         this.dispose();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

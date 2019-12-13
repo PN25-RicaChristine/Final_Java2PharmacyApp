@@ -7,6 +7,7 @@ package controllers;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import model.OrderDatabase;
 
@@ -25,4 +26,21 @@ public class OrderController {
     public void addDetails(String order_id,String drug_id, int quantity_ordered, double subtotal){
         od.createDetails(order_id, drug_id, quantity_ordered, subtotal);
     }
+    
+    public void getCustOrder(JTable table, JLabel customer_id){    
+        od.retrieveCustomerOrder(table, customer_id);
+    }
+    
+    public void getOrderDetails(JTable table, String order_id){
+        od.retrieveOrderDetails(table, order_id);
+    }
+    
+    public void cancelOrder(String id){
+        od.deleteOrder(id);
+    }
+    
+    public void getCustomerAllOrder(JTable table){
+        od.retrieveCustomerAllOrder(table);
+    }
 }
+ 
